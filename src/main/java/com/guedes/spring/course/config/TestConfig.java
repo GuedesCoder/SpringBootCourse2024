@@ -3,6 +3,7 @@ package com.guedes.spring.course.config;
 import java.time.Instant;
 import java.util.Arrays;
 
+import org.apache.logging.log4j.message.StringFormattedMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -10,10 +11,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.guedes.spring.course.entities.Category;
 import com.guedes.spring.course.entities.Order;
+import com.guedes.spring.course.entities.Product;
 import com.guedes.spring.course.entities.User;
 import com.guedes.spring.course.entities.enums.OrderStatus;
 import com.guedes.spring.course.repositories.CategoryRepository;
 import com.guedes.spring.course.repositories.OrderRepository;
+import com.guedes.spring.course.repositories.ProductRepository;
 import com.guedes.spring.course.repositories.UserRepository;
 
 @Configuration
@@ -29,6 +32,9 @@ public class TestConfig implements CommandLineRunner {
 	@Autowired
 	private CategoryRepository categoryRepository;
 	
+	@Autowired
+	private ProductRepository productRepository;
+	
 	@Override
 	public void run(String... args) throws Exception {
 		User u1 = new User(null, "Leandro Guedes Costa", "leandro.costa30@fatec.sp.gov.br", "991033011", "StarLord");
@@ -43,9 +49,14 @@ public class TestConfig implements CommandLineRunner {
 		Category cat2 = new Category(null, "Tools");
 		Category cat3 = new Category(null, "Health & Care");
 		
+		Product prod1 = new Product(null, "Playstation 5", "Console Playstation 5 com disco", 3829.99, "https://www.playstation.com/pt-br/ps5/");
+		Product prod2 = new Product(null, "Tupia Milwaukee", "Tupia 18v Fuel 2838-20 Milwaukee", 6885.99, "https://www.milwaukeestore.com.br/ferramentas-eletricas/tupia-18v-fuel-2838-20-milwaukee?gad_source=1&utm_source=google&utm_campaign=20239894544&utm_medium=660791881128-149275046105&utm_content=milwaukee%7C%7Cnemu_zB0qG_KTaI");
+		Product prod3 = new Product(null, "Whey Protein 80%", "Whey Protein Concentrado (1KG) - Growth Supplements", 108.19, "https://www.gsuplementos.com.br/whey-protein-concentrado-1kg-growth-supplements-p985936");
+		
 		userRepository.saveAll(Arrays.asList(u1, u2, u3));
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3));
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+		productRepository.saveAll(Arrays.asList(prod1, prod2, prod3));
 	}
 	
 }
