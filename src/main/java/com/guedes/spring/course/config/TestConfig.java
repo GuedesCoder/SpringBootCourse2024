@@ -3,7 +3,6 @@ package com.guedes.spring.course.config;
 import java.time.Instant;
 import java.util.Arrays;
 
-import org.apache.logging.log4j.message.StringFormattedMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -11,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.guedes.spring.course.entities.Category;
 import com.guedes.spring.course.entities.Order;
+import com.guedes.spring.course.entities.OrderItem;
 import com.guedes.spring.course.entities.Product;
 import com.guedes.spring.course.entities.User;
 import com.guedes.spring.course.entities.enums.OrderStatus;
 import com.guedes.spring.course.repositories.CategoryRepository;
+import com.guedes.spring.course.repositories.OrderItemRepository;
 import com.guedes.spring.course.repositories.OrderRepository;
 import com.guedes.spring.course.repositories.ProductRepository;
 import com.guedes.spring.course.repositories.UserRepository;
@@ -34,6 +35,9 @@ public class TestConfig implements CommandLineRunner {
 
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -73,6 +77,13 @@ public class TestConfig implements CommandLineRunner {
 		prod5.getCategories().add(cat2);
 
 		productRepository.saveAll(Arrays.asList(prod1, prod2, prod3, prod4, prod5));
+
+		OrderItem orderItem1 = new OrderItem(o3, prod5, 2, prod5.getPrice());
+		OrderItem orderItem2 = new OrderItem(o3, prod3, 3, prod3.getPrice());
+		OrderItem orderItem3 = new OrderItem(o2, prod3, 5, prod3.getPrice());
+		OrderItem orderItem4 = new OrderItem(o1, prod1, 1, prod1.getPrice());
+		
+		orderItemRepository.saveAll(Arrays.asList(orderItem1, orderItem2, orderItem3, orderItem4));
 	}
 
 }
